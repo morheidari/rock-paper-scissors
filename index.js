@@ -16,13 +16,15 @@ function playRound(playerSelection, computerSelection){
     pSelection = playerSelection.toLowerCase();
     cSelectoin = computerSelection.toLowerCase();
     if (pSelection == cSelectoin){
-        return "draw.\n";
+        return `Draw, ${pSelection} ${cSelectoin}\n`;
     } 
     else if ((pSelection == 'rock' && cSelectoin == 'scissors') || (pSelection == 'paper' && cSelectoin == 'rock') || (pSelection == 'scissors' && cSelectoin == 'paper')){
-        return `you win, ${pSelection} beats ${cSelectoin}.\n`;
+        playerScore += 1;
+        return `You win, ${pSelection} beats ${cSelectoin}.\n`;
     }
     else {
-        return `computer win, ${cSelectoin} beats ${pSelection}.\n`;
+        computerScore += 1; 
+        return `Computer win, ${cSelectoin} beats ${pSelection}.\n`;
     }
 }
 
@@ -33,4 +35,15 @@ function game() {
     }
 }
 
-game()
+let buttons = document.querySelectorAll("button");
+
+computerScore = 0;
+playerScore = 0;
+function reportResult(e){
+    let report = document.querySelector(".report");
+    let score = document.querySelector(".score");
+    report.textContent = playRound(e.target.id, getComputerChoice());
+    score.textContent = `Computer - Player |  ${computerScore} - ${playerScore}`
+}
+Array.from(buttons).forEach(button => button.addEventListener('click', (e) => reportResult(e)));
+
