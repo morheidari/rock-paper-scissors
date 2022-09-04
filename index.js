@@ -42,8 +42,22 @@ playerScore = 0;
 function reportResult(e){
     let report = document.querySelector(".report");
     let score = document.querySelector(".score");
+    let winner = document.querySelector(".winner")
     report.textContent = playRound(e.target.id, getComputerChoice());
     score.textContent = `Computer - Player |  ${computerScore} - ${playerScore}`
+    if (computerScore==5){
+        computerScore = 0;
+        playerScore = 0;
+        winner.textContent = "Computer win"
+    }
+    else if (playerScore==5){
+        computerScore = 0;
+        playerScore = 0;
+        winner.textContent = "Player win" 
+    }
+    else{
+        winner.textContent = "No winner yet" 
+    }
 }
 Array.from(buttons).forEach(button => button.addEventListener('click', (e) => reportResult(e)));
 
